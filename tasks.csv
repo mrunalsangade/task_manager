@@ -1,2 +1,4 @@
 id,title,description,category,deadline,status
-1,complete pending assignments,assignments of all elective subjects,study..,2025-04-24,Pending
+1,complete pending assignments,assignments of all elective subjects,study,2025-04-24,Pending
+2,gym,go to gym,fitness,2025-04-21,Completed
+3,groceries,from d-mart bring groceries,shopping,2025-04-23,Pending
