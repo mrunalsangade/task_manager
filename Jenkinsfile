@@ -8,7 +8,6 @@ pipeline {
     }
     stage('Install Dependencies') {
       steps { 
-        // Windows agent:
         bat 'pip install -r requirements.txt'
       }
     }
