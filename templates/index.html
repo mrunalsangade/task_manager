@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Task Manager</h1>
+
+    <a href="/add" class="btn">Add New Task</a>
+
+    <h2>Task List</h2>
+    <ul>
+        {% for task in tasks %}
+        <li class="task">
+            <p><strong>{{ task.title }}</strong> ({{ task.category }})</p>
+            <p>{{ task.description }}</p>
+            <p>Deadline: {{ task.deadline }}</p>
+            <p>Status: <span class="status {{ task.status }}">{{ task.status }}</span></p>
+            <a href="/edit/{{ task.id }}" class="btn edit-btn">Edit</a>
+            <a href="/delete/{{ task.id }}" class="btn delete-btn">Delete</a>
+            {% if task.status == 'Pending' %}
+                <a href="/complete/{{ task.id }}" class="btn complete-btn">Mark as Complete</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+</body>
+</html>
