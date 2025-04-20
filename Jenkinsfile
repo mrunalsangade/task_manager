@@ -20,20 +20,20 @@ pipeline {
 
     stage('Test') {
       steps {
-        // ensure the reports directory exists
+        // make sure reports folder exists
         bat 'if not exist reports mkdir reports'
-        // run pytest, but if it exits with code 5 (no tests) we ignore that
-        bat """
-          python -m pytest --junitxml=reports/results.xml || exit /B 0
-        """
+
+        // explicitly run pytest on the tests/ folder
+        bat 'python -m pytest tests --maxfail=1 --disable-warnings --junitxml=reports/results.xml'
       }
       post {
         always {
-          // publish whatever XML we have, even if it’s empty
-          junit testResults: 'reports/results.xml', allowEmptyResults: true
+          // this will fail the build if the XML is malformed or missing tests
+          junit allowEmptyResults: false, testResults: 'reports/results.xml'
         }
       }
     }
+
 
     stage('Build') {
       steps {
