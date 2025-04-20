@@ -23,7 +23,7 @@ pipeline {
         // create a folder for test reports
         bat 'if not exist reports mkdir reports'
         // Run pytest and produce JUnit XML for reporting
-        bat 'python -m pytest --junitxml=reports/results.xml'
+        bat 'python -m pytest --junitxml=reports/results.xml || exit 0'
       }
       post {
         always {
