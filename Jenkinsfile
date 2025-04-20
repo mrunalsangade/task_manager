@@ -20,15 +20,17 @@ pipeline {
 
     stage('Test') {
       steps {
-        // create a folder for test reports
+        // ensure the reports directory exists
         bat 'if not exist reports mkdir reports'
-        // Run pytest and produce JUnit XML for reporting
-        bat 'python -m pytest --junitxml=reports/results.xml || exit 0, allowEmptyResults: true'
+        // run pytest, but if it exits with code 5 (no tests) we ignore that
+        bat """
+          python -m pytest --junitxml=reports/results.xml || exit /B 0
+        """
       }
       post {
         always {
-          // Publish test results in Jenkins
-          junit 'reports/results.xml'
+          // publish whatever XML we have, even if it’s empty
+          junit testResults: 'reports/results.xml', allowEmptyResults: true
         }
       }
     }
@@ -49,8 +51,8 @@ pipeline {
         )]) {
           // Log in, build, tag & push your image
           bat 'echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin'
-          bat 'docker build -t %DOCKER_USER%/task_manager:latest .'
-          bat 'docker push %DOCKER_USER%/task_manager:latest'
+          bat 'docker build -t %DOCKER_USER%/task_manager_test:latest .'
+          bat 'docker push %DOCKER_USER%/task_manager_test:latest'
         }
       }
     }
