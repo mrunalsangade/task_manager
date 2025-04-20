@@ -21,7 +21,7 @@ pipeline {
     stage('Lint') {
       steps {
         // Run flake8 (adjust if you use a different linter)
-        bat 'flake8 .'
+        bat 'python -m flake8 .'
       }
     }
 
