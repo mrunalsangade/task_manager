@@ -14,7 +14,7 @@ pipeline {
         // Make sure pip is up to date
         bat 'python -m pip install --upgrade pip'
         // Install from requirements.txt
-        bat 'python pip install -r requirements.txt'
+        bat 'python -m pip install -r requirements.txt'
       }
     }
 
@@ -28,7 +28,7 @@ pipeline {
     stage('Test') {
       steps {
         // Run pytest and produce JUnit XML for reporting
-        bat 'python pytest --junitxml=reports/results.xml'
+        bat 'python -m pytest --junitxml=reports/results.xml'
       }
       post {
         always {
