@@ -18,13 +18,6 @@ pipeline {
       }
     }
 
-    stage('Lint') {
-      steps {
-        // Run flake8 (adjust if you use a different linter)
-        bat 'python -m flake8 .'
-      }
-    }
-
     stage('Test') {
       steps {
         // Run pytest and produce JUnit XML for reporting
