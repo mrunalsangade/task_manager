@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  web:
+    image: mrunalsangade/task_manager_test:latest   # or build: . to rebuild
+    ports:
+      - "5000:5000"
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:6
+    # (no ports needed unless you want to talk to it from your host)
