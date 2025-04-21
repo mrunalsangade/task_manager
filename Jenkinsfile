@@ -56,5 +56,13 @@ pipeline {
         }
       }
     }
+
+    stage('Docker Run') {
+      steps {
+
+        bat 'docker run -d -p 5000:5000 --name task_manager_container %	DOCKER_USER%/task_manager_test:latest'
+      }
+    }
+
   }
 }
