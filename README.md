@@ -1,5 +1,5 @@
 # TASK MANAGER
-Task Manager Web App
+Task Manager Web Application
 
 
 ## Project Description
