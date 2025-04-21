@@ -53,14 +53,11 @@ pipeline {
           bat 'echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin'
           bat 'docker build -t %DOCKER_USER%/task_manager_test:latest .'
           bat 'docker push %DOCKER_USER%/task_manager_test:latest'
+	  bat 'docker stop task_manager_test || echo "No container to stop"'
+          bat 'docker rm task_manager_test || echo "No container to remove"'
+
+          bat 'docker run -d -p 5000:5000 --name task_manager_test %DOCKER_USER%/task_manager_test:latest'
         }
-      }
-    }
-
-    stage('Docker Run') {
-      steps {
-
-        bat 'docker run -d -p 5000:5000 --name task_manager_container %	DOCKER_USER%/task_manager_test:latest'
       }
     }
 
